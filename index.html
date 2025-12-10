@@ -1,0 +1,41 @@
+INSTALL MICROK8S
+
+sudo snap install microk8s --classic --channel=1.33
+
+microk8s start
+microk8s status
+microk8s kubectl
+alias kubectl=’microk8s kubectl’
+
+
+✅ Grafana Install 
+
+✅ Step 1 — Add Grafana repository
+sudo mkdir -p /etc/apt/keyrings
+
+curl -fsSL https://apt.grafana.com/gpg.key | sudo tee /etc/apt/keyrings/grafana.asc >/dev/null
+
+echo "deb [signed-by=/etc/apt/keyrings/grafana.asc] https://apt.grafana.com stable main" \
+| sudo tee /etc/apt/sources.list.d/grafana.list
+
+
+✅ Step 2 — Update package index
+sudo apt update
+
+
+✅ Step 3 — Install Grafana Enterprise
+sudo apt install -y grafana-enterprise
+
+✅ This installs the correct latest build automatically
+ ✅ No manual .deb download
+ ✅ No 404 errors
+ ✅ No dependency issues
+
+✅ Step 4 — Enable and start Grafana
+sudo systemctl daemon-reload
+sudo systemctl enable grafana-server
+sudo systemctl start grafana-server
+
+
+✅ Step 5 — Verify service status
+sudo systemctl status grafana-server --no-pager
